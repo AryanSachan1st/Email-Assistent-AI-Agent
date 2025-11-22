@@ -35,6 +35,7 @@ No code changes required — just update the prompts.
 ---
 
 ## 📁 Project Structure
+```bash
 prompt-driven-agent/
 ├── backend/
 │ ├── src/
@@ -48,7 +49,7 @@ prompt-driven-agent/
 │
 ├── .gitignore
 └── README.md
-
+```
 
 ---
 
@@ -83,7 +84,7 @@ You should see:
 Backend Server running on http://localhost:3001
 ```
 
-💻 Frontend Setup
+## 💻 Frontend Setup
 ```bash
 cd ../frontend
 npm install

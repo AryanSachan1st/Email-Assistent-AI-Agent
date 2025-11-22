@@ -1,0 +1,128 @@
+[
+  {
+    "id": 101,
+    "sender": "boss@acme-corp.com",
+    "subject": "URGENT: Server Migration Failure in Production",
+    "body": "Team, we have a critical outage on the primary web server following the migration attempt. Please drop everything and join the bridge immediately. I need a full root cause analysis report on my desk by 3 PM today. This is an all-hands-on-deck situation.",
+    "timestamp": "2025-11-22T08:30:00Z"
+  },
+  {
+    "id": 102,
+    "sender": "calendar@meetup.com",
+    "subject": "Invitation: Project Kickoff Meeting - Tuesday",
+    "body": "Please join the kickoff meeting for the new 'Nova' project. It is scheduled for Tuesday at 10:00 AM in Conference Room B. Please accept or decline the calendar invite.",
+    "timestamp": "2025-11-21T14:45:00Z"
+  },
+  {
+    "id": 103,
+    "sender": "noreply@marketing-digest.com",
+    "subject": "Weekly Newsletter: 10 Tips for Better Coding",
+    "body": "Welcome to the latest issue of our development digest. This week we focus on asynchronous JavaScript and the best practices for state management in React. No response necessary.",
+    "timestamp": "2025-11-20T09:15:00Z"
+  },
+  {
+    "id": 104,
+    "sender": "hr@acme-corp.com",
+    "subject": "Action Required: Update Your Benefits Selection",
+    "body": "This is a reminder that the open enrollment period for your health benefits is closing this Friday. You must log into the HR portal and finalize your selections. Failure to do so will result in default coverage.",
+    "timestamp": "2025-11-19T11:00:00Z"
+  },
+  {
+    "id": 105,
+    "sender": "auntie-mabel@family.net",
+    "subject": "Re: Dinner party next month",
+    "body": "Dearest, I wanted to confirm the date for the family dinner party next month. Is the 15th still working for everyone? Also, could you pick up a bottle of red wine on your way? Talk soon!",
+    "timestamp": "2025-11-18T18:50:00Z"
+  },
+  {
+    "id": 106,
+    "sender": "sales-team@acme-corp.com",
+    "subject": "Quick Question on the Q4 Report",
+    "body": "Hi, I'm analyzing the Q4 sales data. Can you quickly check and verify the total revenue figure for the European division? I think there might be a slight discrepancy in the spreadsheet. Please reply by the end of the day.",
+    "timestamp": "2025-11-22T09:05:00Z"
+  },
+  {
+    "id": 107,
+    "sender": "support@saas-tool.com",
+    "subject": "Ticket #4567: High Priority Bug Report",
+    "body": "A customer reported a bug where the 'Save' button is unresponsive on the checkout page. This is affecting conversions. Please investigate the logs immediately and update the ticket with your findings.",
+    "timestamp": "2025-11-22T09:15:00Z"
+  },
+  {
+    "id": 108,
+    "sender": "john.doe@colleague.com",
+    "subject": "Lunch Today?",
+    "body": "Hey, running out to grab a sandwich. Want to join me around 12:30? If not, no worries!",
+    "timestamp": "2025-11-22T11:50:00Z"
+  },
+  {
+    "id": 109,
+    "sender": "investor-update@finance.com",
+    "subject": "Quarterly Financial Performance Briefing",
+    "body": "Attached is the briefing document detailing our performance metrics for the last quarter. This is for review only; discussion will be held during the next board meeting.",
+    "timestamp": "2025-11-21T10:30:00Z"
+  },
+  {
+    "id": 110,
+    "sender": "project-manager@acme-corp.com",
+    "subject": "Reminder: Deadline for Feature X is Tomorrow",
+    "body": "Just a friendly reminder that the deadline for submitting Feature X code review is tomorrow morning. Please ensure all tests are passing before submission.",
+    "timestamp": "2025-11-21T16:00:00Z"
+  },
+  {
+    "id": 111,
+    "sender": "conference@tech-summit.org",
+    "subject": "Your Registration Confirmation for Tech Summit 2026",
+    "body": "Thank you for registering for the annual Tech Summit. Your ticket is attached. We look forward to seeing you in April!",
+    "timestamp": "2025-11-20T14:00:00Z"
+  },
+  {
+    "id": 112,
+    "sender": "neighbor@home.net",
+    "subject": "Package delivery",
+    "body": "Your Amazon package was delivered to my house by mistake. I can drop it off later this evening, or you can swing by to pick it up. Let me know which works best.",
+    "timestamp": "2025-11-22T14:10:00Z"
+  },
+  {
+    "id": 113,
+    "sender": "feedback-system@acme-corp.com",
+    "subject": "New Peer Review Assigned: Complete by Friday",
+    "body": "You have been assigned to review John Doe's performance. Please log into the feedback portal and complete the review by 5 PM Friday.",
+    "timestamp": "2025-11-21T13:30:00Z"
+  },
+  {
+    "id": 114,
+    "sender": "training@certification.com",
+    "subject": "Your AWS Certification Expires Soon",
+    "body": "Your AWS Certified Developer certification is set to expire in 60 days. Please plan your recertification exam accordingly.",
+    "timestamp": "2025-11-19T08:00:00Z"
+  },
+  {
+    "id": 115,
+    "sender": "marketing@newsletter.com",
+    "subject": "Exclusive Discount Code Inside!",
+    "body": "Our biggest sale of the year is here! Use code 'FLASH25' for 25% off all products. Limited time offer.",
+    "timestamp": "2025-11-20T12:00:00Z"
+  },
+  {
+    "id": 116,
+    "sender": "accounting@acme-corp.com",
+    "subject": "Expense Report Submission Q3",
+    "body": "Please submit all outstanding expense reports for Q3 to the accounting portal by the end of the week. Late submissions will be processed next month.",
+    "timestamp": "2025-11-18T15:30:00Z"
+  },
+  {
+    "id": 117,
+    "sender": "travel-agent@travel.com",
+    "subject": "Flight Confirmation for Business Trip to London",
+    "body": "Your flight details for the London trip have been confirmed. Departure on December 5th, 8:00 AM. Ticket number: XYZ123. Safe travels!",
+    "timestamp": "2025-11-17T17:00:00Z"
+  },
+  {
+    "id": 118,
+    "sender": "supplier-x@vendor.com",
+    "subject": "Price Change Notification",
+    "body": "Due to increased material costs, the price of component ABC will increase by 10% effective January 1st. Please update your purchasing system.",
+    "timestamp": "2025-11-22T15:45:00Z"
+  }
+]

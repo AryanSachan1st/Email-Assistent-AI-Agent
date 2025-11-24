@@ -1,10 +1,8 @@
 import prompts from '../data/prompts.json' with { type: 'json' };
 import mockEmails from '../data/mockEmails.json' with { type: 'json' };
 
-
 // Utility function to get the email content
 const getEmailById = (emailId) => {
-  // Finds the email by ID, ensuring the ID is treated as a number
   const numericId = parseInt(emailId, 10);
   return mockEmails.find(email => email.id === numericId);
 };
@@ -16,29 +14,26 @@ const getBasePromptKey = (userInstruction) => {
   if (lowerInstruction.includes('summarize') || lowerInstruction.includes('summary')) {
     return 'summarize';
   }
-  if (lowerInstruction.includes('reply') || lowerInstruction.includes('draft')) {
+  if (lowerInstruction.includes('reply') || lowerInstruction.includes('draft') || lowerInstruction.includes('write')) {
     return 'draft_reply';
   }
   if (lowerInstruction.includes('task') || lowerInstruction.includes('action item') || lowerInstruction.includes('actions')) {
     return 'action_item';
   }
   
-  // Default general prompt if intent is unclear
   return 'draft_reply'; 
 };
 
 /**
  * Creates the final, combined prompt string for the LLM.
- * This implements the core logic: Email + Stored Prompt + User Query.
+ * FIX: Now explicitly defines the Sender/Receiver roles to prevent confusion.
  */
 export const createLLMPrompt = (emailId, userInstruction) => {
   const email = getEmailById(emailId);
   
   if (!email) {
-    // Return a structured error message for the LLM to process if possible, 
-    // or just throw if the email is not found locally.
     console.error(`Email with ID ${emailId} not found.`);
-    return `Error: Could not locate email content for ID ${emailId}. The LLM request cannot be constructed.`;
+    return `Error: Could not locate email content for ID ${emailId}.`;
   }
 
   // 1. Fetch the relevant prompt template
@@ -46,27 +41,38 @@ export const createLLMPrompt = (emailId, userInstruction) => {
   const relevantPrompt = prompts[basePromptKey];
 
   if (!relevantPrompt) {
-      return "Error: Relevant prompt template not found in the 'Agent Brain'.";
+      return "Error: Relevant prompt template not found.";
   }
 
-  // 2. Combine all elements into the final instruction
+  // 2. Define the User Identity (You can change this to a variable later)
+  const MY_NAME = "Aryan Sachan";
+
+  // 3. Combine all elements into the final instruction with EXPLICIT ROLES
   const fullPrompt = `
-    --- AGENT INSTRUCTION (The Rule/Prompt Template) ---
+    --- AGENT ROLE & CONTEXT ---
+    You are an intelligent email assistant acting on behalf of the user: "${MY_NAME}".
+    You are processing an incoming email FROM: "${email.sender}".
+    
+    --- TASK INSTRUCTION (The Rule) ---
     ${relevantPrompt}
 
-    --- EMAIL CONTEXT ---
+    --- INCOMING EMAIL CONTENT (Do not confuse this with your output) ---
     Sender: ${email.sender}
     Subject: ${email.subject}
-    Content:
+    Body:
     """
     ${email.body}
     """
 
-    --- USER COMMAND (The Specific Instruction/Variable) ---
-    User is asking to: "${userInstruction}"
+    --- USER COMMAND ---
+    The user wants you to: "${userInstruction}"
 
-    --- FINAL RESPONSE ---
-    Generate the required output now.
+    --- OUTPUT GUIDELINES ---
+    1. If drafting a reply, the email must be addressed TO "${email.sender}".
+    2. The email must be signed FROM "${MY_NAME}".
+    3. Do not include placeholders like "[Your Name]"—use "${MY_NAME}".
+    
+    Generate the output now.
   `;
 
   return fullPrompt.trim();

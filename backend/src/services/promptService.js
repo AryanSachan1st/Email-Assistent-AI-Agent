@@ -1,5 +1,6 @@
-import prompts from '../data/prompts.json' assert { type: 'json' }; // FIX: Added import assertion
-import mockEmails from '../data/mockEmails.json' assert { type: 'json' }; // FIX: Added import assertion
+import prompts from '../data/prompts.json' with { type: 'json' };
+import mockEmails from '../data/mockEmails.json' with { type: 'json' };
+
 
 // Utility function to get the email content
 const getEmailById = (emailId) => {

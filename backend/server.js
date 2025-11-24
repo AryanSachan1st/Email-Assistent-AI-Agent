@@ -4,7 +4,16 @@ import 'dotenv/config';
 import { createLLMPrompt } from './src/services/promptService.js';
 import { callLLMApi } from './src/services/llmService.js';
 // Assuming mockEmails.json is in the data folder and contains the full inbox
-import mockEmails from './src/data/mockEmails.json' assert { type: 'json' }; 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const mockEmailsPath = path.join(__dirname, 'src/data/mockEmails.json');
+const mockEmails = JSON.parse(fs.readFileSync(mockEmailsPath, 'utf-8'));
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -94,6 +103,6 @@ app.post('/api/batch-process', async (req, res) => {
     res.json({ message: "Ingestion successful (Simulated)", data: enrichedEmails });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Backend Server running on http://localhost:${PORT}`);
 });

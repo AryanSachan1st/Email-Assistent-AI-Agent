@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // Using environment variables for both ports
+// Backend base URL (local + production)
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || 3001;
-const API_BASE_URL = `http://localhost:${BACKEND_PORT}/api`;
+const API_BASE_URL =
+  (process.env.REACT_APP_API_BASE || `http://localhost:${BACKEND_PORT}`) + '/api';
 
-const FRONTEND_HOST_PORT = process.env.PORT || process.env.REACT_APP_PORT || 3000;
+// Just for displaying UI origin in the footer (optional)
+const UI_ORIGIN =
+  typeof window !== 'undefined' ? window.location.origin : '';
+
 
 // --- 1. EmailList Component (Consolidated) ---
 const EmailList = ({ emails, selectedEmailId, onSelectEmail }) => (
@@ -244,8 +249,8 @@ function App() {
               onSelectEmail={setSelectedEmailId} 
             />
             <p className="mt-4 text-xs text-gray-500">
-              <span className="font-semibold">UI Port:</span> {FRONTEND_HOST_PORT} | 
-              <span className="font-semibold"> API Port:</span> {BACKEND_PORT}
+                <span className="font-semibold">UI:</span> {UI_ORIGIN} | 
+                <span className="font-semibold"> API:</span> {API_BASE_URL}
             </p>
 
           </div>

@@ -26,7 +26,7 @@ const getBasePromptKey = (userInstruction) => {
 
 /**
  * Creates the final, combined prompt string for the LLM.
- * FIX: Now explicitly defines the Sender/Receiver roles to prevent confusion.
+ * FIX: Dynamic Identity - Instructs LLM to find the user's name in the command.
  */
 export const createLLMPrompt = (emailId, userInstruction) => {
   const email = getEmailById(emailId);
@@ -44,20 +44,17 @@ export const createLLMPrompt = (emailId, userInstruction) => {
       return "Error: Relevant prompt template not found.";
   }
 
-  // 2. Define the User Identity (You can change this to a variable later)
-  const MY_NAME = "Aryan Sachan";
-
-  // 3. Combine all elements into the final instruction with EXPLICIT ROLES
+  // 2. Combine all elements into the final instruction with EXPLICIT ROLES
   const fullPrompt = `
     --- AGENT ROLE & CONTEXT ---
-    You are an intelligent email assistant acting on behalf of the user: "${MY_NAME}".
+    You are an intelligent email assistant acting on behalf of the user (the person giving you commands).
     You are processing an incoming email FROM: "${email.sender}".
     
     --- TASK INSTRUCTION (The Rule) ---
     ${relevantPrompt}
 
-    --- INCOMING EMAIL CONTENT (Do not confuse this with your output) ---
-    Sender: ${email.sender}
+    --- INCOMING EMAIL CONTENT (This is what you are reading/replying to) ---
+    Original Sender: ${email.sender}
     Subject: ${email.subject}
     Body:
     """
@@ -68,10 +65,12 @@ export const createLLMPrompt = (emailId, userInstruction) => {
     The user wants you to: "${userInstruction}"
 
     --- OUTPUT GUIDELINES ---
-    1. If drafting a reply, the email must be addressed TO "${email.sender}".
-    2. The email must be signed FROM "${MY_NAME}".
-    3. Do not include placeholders like "[Your Name]"—use "${MY_NAME}".
-    
+    1. **Directionality:** You are writing *on behalf of the user* (the person issuing the command) *to* the original sender ("${email.sender}").
+    2. **Recipient:** If drafting a reply, address it TO "${email.sender}".
+    3. **Signature (Who is sending this reply?):** - Check the "USER COMMAND" above. If the user specified a name (e.g., "from Aryan", "sign as John", "my name is..."), use that name.
+       - If NO name is explicitly provided in the command, use the placeholder "[Your Name]".
+       - **CRITICAL:** NEVER sign the email using the name "${email.sender}". You are NOT ${email.sender}.
+
     Generate the output now.
   `;
 

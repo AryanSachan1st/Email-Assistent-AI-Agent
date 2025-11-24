@@ -10,10 +10,9 @@ const API_BASE_URL =
 const UI_ORIGIN =
   typeof window !== 'undefined' ? window.location.origin : '';
 
-
 // --- 1. EmailList Component (Consolidated) ---
 const EmailList = ({ emails, selectedEmailId, onSelectEmail }) => (
-    <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-250px)]">
+    <div className="space-y-2 overflow-y-auto max-h-[60vh] md:max-h-[calc(100vh-250px)]">
         {emails.length === 0 && <p className="text-gray-500 italic text-center py-4">Loading emails...</p>}
         {emails.map((email) => (
             <div
@@ -32,7 +31,7 @@ const EmailList = ({ emails, selectedEmailId, onSelectEmail }) => (
                 <p className="text-xs text-gray-700 truncate mt-1">
                     <span className="font-medium">From:</span> {email.sender}
                 </p>
-                <div className="mt-2 flex space-x-2">
+                <div className="mt-2 flex flex-wrap gap-2">
                     {/* Logic to determine pill color based on category */}
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                         !email.category || email.category === 'General' ? 'bg-gray-100 text-gray-600' : 
@@ -127,19 +126,19 @@ const ChatInterface = ({ selectedEmailId, apiBaseUrl }) => {
                     )}
                 </div>
                 
-                <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200 bg-white flex">
+                <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200 bg-white flex flex-col sm:flex-row gap-2 sm:gap-0">
                     <input 
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder={selectedEmailId ? "Draft a reply asking about Tuesday..." : "Please select an email first."}
                         disabled={!selectedEmailId || loading}
-                        className="flex-grow p-3 border border-gray-300 rounded-l-lg focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
+                        className="flex-grow p-3 border border-gray-300 rounded-lg sm:rounded-r-none sm:rounded-l-lg focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50"
                     />
                     <button 
                         type="submit" 
                         disabled={!selectedEmailId || loading}
-                        className="px-6 py-3 bg-blue-600 text-white font-medium rounded-r-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300"
+                        className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg sm:rounded-l-none sm:rounded-r-lg hover:bg-blue-700 transition-colors disabled:bg-blue-300 w-full sm:w-auto"
                     >
                         Send
                     </button>
@@ -179,7 +178,7 @@ function App() {
     setSelectedEmail(email);
   }, [selectedEmailId, emails]);
 
-  // 3. Filter Logic (Allows filtering by category/task, ready for Phase 2 queries)
+  // 3. Filter Logic
   const filteredEmails = useMemo(() => {
     if (!filter) return emails;
     const lowerFilter = filter.toLowerCase();
@@ -214,17 +213,18 @@ function App() {
   };
   
   return (
-    <div className="min-h-screen bg-gray-100 p-8 font-sans">
+    <div className="min-h-screen bg-gray-100 p-4 md:p-8 font-sans">
       <script src="https://cdn.tailwindcss.com"></script>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-extrabold text-blue-900 mb-6 border-b-4 border-blue-400 pb-2">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-blue-900 mb-6 border-b-4 border-blue-400 pb-2">
           Prompt-Driven Email Productivity Agent
         </h1>
 
-        <div className="flex space-x-6">
+        {/* RESPONSIVE LAYOUT CHANGE: flex-col on mobile, flex-row on desktop (md) */}
+        <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
           
-          {/* LEFT PANE: Inbox List and Ingestion Button */}
-          <div className="w-1/3 bg-white rounded-xl shadow-lg p-4 border border-gray-200">
+          {/* LEFT PANE: Inbox List */}
+          <div className="w-full md:w-1/3 bg-white rounded-xl shadow-lg p-4 border border-gray-200 order-2 md:order-1">
             <h2 className="text-xl font-semibold mb-4 text-gray-800">Inbox ({filteredEmails.length})</h2>
             <div className="flex justify-between items-center mb-4">
                 <input
@@ -255,8 +255,8 @@ function App() {
 
           </div>
 
-          {/* RIGHT PANE: Email Viewer and Chat Agent */}
-          <div className="w-2/3 space-y-6">
+          {/* RIGHT PANE: Content & Chat */}
+          <div className="w-full md:w-2/3 space-y-6 order-1 md:order-2">
             <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200 min-h-[150px]">
               <h2 className="text-xl font-semibold text-gray-800 mb-3 border-b pb-2">Selected Email Content</h2>
               {selectedEmail ? (
